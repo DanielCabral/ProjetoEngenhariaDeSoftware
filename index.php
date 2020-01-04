@@ -40,15 +40,15 @@
         <article class="card-body">
         <a href="" class="float-right btn btn-outline-primary">Sign up</a>
         <h4 class="card-title mb-4 mt-1">Sign in</h4>
-            <form>
+            <form action="login.php" method="post">
                 <div class="form-group">
                     <label>Your email</label>
-                    <input name="" class="form-control" placeholder="Email" type="email">
+                    <input name="email" class="form-control" placeholder="Email" type="email">
                 </div> <!-- form-group// -->
                 <div class="form-group">
                     <a class="float-right" href="#">Forgot?</a>
                     <label>Your password</label>
-                    <input class="form-control" placeholder="******" type="password">
+                    <input name="senha" class="form-control" placeholder="******" type="password">
                 </div> <!-- form-group// --> 
                 <div class="form-group"> 
                 <div class="checkbox">
