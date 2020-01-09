@@ -1,0 +1,21 @@
+
+{
+    "name": "developer/sistema-provas-online",
+
+    "authors": [
+        {
+            "name": "Developer",
+            "email": "develope@email.com"
+        }
+    ],
+
+    "minimum-stability": "dev",
+
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Developer\\": "src/developer/"
+        }
+
+    }
+}
