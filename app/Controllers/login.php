@@ -18,6 +18,7 @@ if($tipo==0){
     //carregando aluno
     if($idAluno){
         $a->acess($idAluno);
+        header('Location: ../Views/home/');
         echo 'logou';
     }else{
         echo 'nao logou';
@@ -34,6 +35,7 @@ if($tipo==0){
      //carregando professor
     if($idProfessor!=-1){
         $p->acess($idProfessor);
+        header('Location: /home/index.php');
       echo 'logou';
     }else{
         echo 'nao logou';

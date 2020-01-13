@@ -33,13 +33,17 @@ class Sql
         $stmt->bindParam($key, $value);
     }
 
-    public function query(string $rawQuery, array $params = array()):bool
+    public function query(string $rawQuery, array $params = array()):int
     {
         $stmt = $this->conn->prepare($rawQuery);
-
+ 
         $this->setParams($stmt, $params);
-
-        return $stmt->execute();
+        //echo $rawQuery;
+        $stmt->execute();
+        //if (!$stmt->execute()) {
+            //print_r($stmt->errorInfo());
+        //}
+        return $stmt->rowCount();
     }
 
     public function select(string $rawQuery, $params = array()):array

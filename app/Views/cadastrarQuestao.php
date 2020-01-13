@@ -42,17 +42,17 @@
         <div class="card">
         <article class="card-body">
         <h4 class="card-title mb-4 mt-1">Cadastrar Nova Questão</h4>
-            <form action="../Controllers/save.php" method="post">
+            <form action="../Controllers/save.ph" method="post">
             <label>Tipo de questão: </label>
                 <div class="radio">
-                <label><input type="radio" name="tipo" value="0" checked>Objetiva</label>
+                <label><input type="radio" id="tipo1" name="tipo" value="0" checked>Objetiva</label>
                 </div>
                 <div class="radio">
-                <label><input type="radio" name="tipo" value="1">Verdadeiro/Falso</label>
+                <label><input type="radio" id="tipo2" name="tipo" value="1">Verdadeiro/Falso</label>
                 </div>
                 <div class="form-group">
                     <label>Texto</label>
-                    <input name="nome" class="form-control" placeholder="Nome" type="text">
+                    <input id="texto" name="nome" class="form-control" placeholder="Enuciado" type="text">
                 </div> <!-- form-group// -->
                 <table class="table table-striped custab">
                 <thead>
@@ -79,13 +79,14 @@
                 </tbody>
                 </table>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block"> Cadastrar  </button>
+                    <button onclick="cadastrarQuestao()" type="button" class="btn btn-primary btn-block"> Cadastrar  </button>
                 </div> <!-- form-group// -->                                                           
             </form>
             </article>
             </div> <!-- card.// -->
         </aside> <!-- col.// -->
         <aside class="col-sm-2"></aside>
+        <div id="result"></div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -124,6 +125,9 @@
     var valor= document.getElementById("message-text"); 
     var addAlt;
     function adicionarAlternativa(){
+        document.getElementById("exampleModalLabel").innerHTML="Nova Alternativa";
+        texto.value="";
+        valor.checked=false;
         addAlt=true;
         abrirModal();
     }
@@ -134,7 +138,6 @@
         if (validate(texto)) {
             //colocar na tabela
             var row_number = table.querySelectorAll('tr').length;
-            console.log(row_number);
             if(addAlt==true){
             inserirLinhaTabela(row_number);
             }else{
@@ -142,10 +145,10 @@
                 table.deleteRow(index);
                 inserirLinhaTabela(index);
             }
-            console.log(texto.value);
+
             $('#myModal').modal('hide');
             texto.value="";
-            valor.value="";
+            valor.checked=false;
             if(row_number==4){
                 document.getElementById("addAlternativa").disabled = true;
             }
@@ -178,13 +181,109 @@
         table.deleteRow(index);
     }
     function editarAlternativa(index){
+        document.getElementById("exampleModalLabel").innerHTML="Editar Alternativa";
         var linha = table.rows[index]
         texto.value=linha.cells[0].innerHTML;
-        valor.checked=linha.cells[1].innerHTML;
+        valor.checked=linha.cells[1].innerHTML=="true"?true:false;
         document.getElementById("indexInput").value=index;
         addAlt=false;
         abrirModal();
-        //table.deleteRow(index);
+    }
+
+    function cadastrarQuestao(){
+        var textoQuestao= document.getElementById("texto"); 
+        var row_number = table.querySelectorAll('tr').length;
+        if (validate(textoQuestao)){
+            if(row_number>=2) {
+                var objetiva=document.getElementById("tipo1").checked; 
+                if(objetiva){
+                //Questao objetiva- apenas uma verdadeira
+                //contador de questoes verdadeiras
+                var numTrue=0;
+                for(i=row_number-1;i>=0;i--){
+                    var linha = table.rows[i]
+                    var valorAlt=linha.cells[1].innerHTML=="true"?true:false;
+                    if(valorAlt){
+                        numTrue++;
+                    }
+                }
+                console.log(numTrue);
+                if(numTrue==1){
+                    salvarQuestao();
+                }else{
+                    alert("Questão objetiva precisa conter exatemente uma questão verdadeira.");
+                }
+                }else{
+                    salvarQuestao();
+                }
+               
+            }else{
+                alert("Cadastre ao menos duas alternativas");    
+            }
+        }else{
+            alert("Insira o texto da questao");
+        }
+    }
+    function salvarQuestao(){
+        var textoQuestao= document.getElementById("texto").value; 
+        var tipo=document.getElementById("tipo1").checked==true?0:1; 
+        console.log("tipo"+tipo);
+        var questao = {
+            tipoQ: tipo,
+            texto: textoQuestao,
+        }
+
+        send(questao,'../Controllers/salvarQuestao.php');
+        var id=Number(document.getElementById('result').innerHTML);
+        console.log('id: '+id);
+        salvarAlternativas(id);
+    }
+    function salvarAlternativas(idQuestao){
+        //pegar numero de linhas na tabela
+        var row_number = table.querySelectorAll('tr').length;
+        var i;
+        //para cada linha da tabela de alternativas, pegar os valores das colunas.
+        for(i=row_number-1;i>=0;i--){
+            console.log(i);
+            var linha = table.rows[i]
+            texto.value=linha.cells[0].innerHTML;
+            valor.checked=linha.cells[1].innerHTML=="true"?true:false;
+            var valorAlt=valor.checked?1:0;
+            var alternativa = {
+                fk_idQ: idQuestao,
+                texto: texto.value,
+                vf: valorAlt,
+            }
+            console.log(JSON.stringify(alternativa));
+            send(alternativa,'../Controllers/salvarAlternativas.php');
+        }
+    }
+    function send(classe,urlClass) {
+        var id;
+        console.log(JSON.stringify(classe));
+        //$('#target').html('sending..');
+        
+        $.ajax({
+            
+            type: 'post',
+            url: urlClass,
+            data: JSON.stringify(classe),
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            //traditional: true,
+            success: function (data) {
+                document.getElementById('result').innerHTML =data;
+                console.log('sucess'+data);
+            },
+            fail: function (data) {
+                console.log('fail');
+            },
+            error: function(xhr, status, error) {
+            // var err = JSON.parse(xhr.responseText);
+            alert(error+xhr);
+            },
+            //data: JSON.stringify(class)
+        });
     }
 </script>
 </body>
