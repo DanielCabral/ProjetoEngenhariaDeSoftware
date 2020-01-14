@@ -8,15 +8,11 @@ $fkId=$_POST["fk_idQ"];
 //trim e strip
 //carregando uma alternativa
 $q = new Alternativa();
-$id=$q->generateId();
-$id+=1;
-$ok=Alternativa::create(array(
+Alternativa::create(array(
     'texto'=>$texto,
     'valor'=>$valor,
-    'id'=>$id,
     'fk_Questao_que_id'=>$fkId,
 
 ));
-echo $ok;
 
 ?>

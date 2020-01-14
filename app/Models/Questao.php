@@ -54,13 +54,13 @@ class Questao
     public static function create(array $dados)
     {
         $sql = new Sql();
-        $sql->query('INSERT INTO questao (que_id,que_tipoDequestao, que_texto) VALUES (:ID, :TI, :TE)', 
+        $sql->query('INSERT INTO questao (que_tipoDequestao, que_texto) VALUES (:TI, :TE);', 
             array(
-                ':ID'=>$dados['id'],
                 ':TI'=>$dados['tipo'],
                 ':TE'=>$dados['texto']
             )
         );
+        //return $dados;
     }
     public static function delete(array $dados)
     {

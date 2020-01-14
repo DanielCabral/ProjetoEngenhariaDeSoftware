@@ -10,7 +10,19 @@ class Usuario
     private $login;
     private $senha;
     private $tipo;  //é uma variável exclusiva em código (não possui no BD)
+    private $id;
+    private $nome;
+    private $email;
 
+    public function getId():int{ return $this->id; }
+    public function setId(int $id){ $this->id = $id; }
+
+    public function getNome():string{ return $this->nome; }
+    public function setNome(string $nome){ $this->nome = $nome; }
+
+    public function getEmail():string{ return $this->email; }
+    public function setEmail(string $email){$this->email = $email; }
+    
     public function getLogin():string{ return $this->login; }
     public function setLogin(string $login){ $this->login = $login; }
 

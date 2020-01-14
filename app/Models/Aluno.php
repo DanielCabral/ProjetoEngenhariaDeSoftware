@@ -6,25 +6,8 @@ use Developer\DB\Sql;
 
 class Aluno extends Usuario
 {
-    private $id;
-    private $nome;
-    private $email;
 
-    public function getId():int{ return $this->id; }
-    public function setId(int $id){ $this->id = $id; }
 
-    public function getNome():string{ return $this->nome; }
-    public function setNome(string $nome){ $this->nome = $nome; }
-
-    public function getEmail():string{ return $this->email; }
-    public function setEmail(string $email){$this->email = $email; }
-
-    public function generateId():int
-    {
-        $sql = new Sql();
-        $idG = $sql->select('SELECT MAX(a_id) as id FROM aluno');
-        return $idG[0]['id'];
-    }
     public function acess(int $id):int
     {
         $sql = new Sql();
@@ -48,9 +31,8 @@ class Aluno extends Usuario
     public static function create(array $dados):bool
     {
         $sql = new Sql();
-        $ok=$sql->query('INSERT INTO aluno (a_id,a_nome, a_email, a_login, a_senha) VALUES ( :I,:N, :E, :L, :S)', 
+        $ok=$sql->query('INSERT INTO aluno (a_nome, a_email, a_login, a_senha) VALUES (:N, :E, :L, :S)', 
             array(
-                ':I'=>$dados['id'],
                 ':N'=>$dados['nome'],
                 ':E'=>$dados['email'],
                 ':L'=>$dados['login'],

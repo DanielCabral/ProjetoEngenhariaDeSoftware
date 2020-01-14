@@ -55,18 +55,16 @@ class Alternativa
         }   
     }
 
-    public static function create(array $dados):int
+    public static function create(array $dados)
     {
         $sql = new Sql();
-        $ret=$sql->query('INSERT INTO alternativa (alt_texto,alt_valor,alt_id,fk_Questao_que_id) VALUES ( :T,:V,:I, :FK)', 
+        $sql->query('INSERT INTO alternativa (alt_texto,alt_valor,fk_Questao_que_id) VALUES ( :T,:V,:FK)', 
             array(
                 ':T'=>$dados['texto'],
                 ':V'=>$dados['valor'],
-                ':I'=>$dados['id'],
                 ':FK'=>$dados['fk_Questao_que_id']
             )
         );
-        return $ret;
     }
 
     public function save()

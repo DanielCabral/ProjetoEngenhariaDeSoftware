@@ -33,7 +33,7 @@ class Sql
         $stmt->bindParam($key, $value);
     }
 
-    public function query(string $rawQuery, array $params = array()):int
+    public function query(string $rawQuery, array $params = array())
     {
         $stmt = $this->conn->prepare($rawQuery);
  
@@ -43,7 +43,9 @@ class Sql
         //if (!$stmt->execute()) {
             //print_r($stmt->errorInfo());
         //}
-        return $stmt->rowCount();
+        //$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $id=$this->conn->lastInsertId();
+        print_r($id);
     }
 
     public function select(string $rawQuery, $params = array()):array
