@@ -1,0 +1,82 @@
+/* Lógico_1: */
+
+CREATE TABLE Aluno (
+    a_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    a_nome  varchar(32) not null,
+    a_email varchar(32) not null unique,
+    a_login varchar(32) not null unique,
+    a_senha varchar(32) not null
+);
+
+CREATE TABLE Professor (
+    p_id int not null AUTO_INCREMENT PRIMARY KEY,
+    p_nome varchar(32) not null,
+    p_email varchar(32) not null,
+    p_login varchar(32) not null,
+    p_senha varchar(32) not null
+);
+
+CREATE TABLE Prova (
+    pro_id int not null AUTO_INCREMENT PRIMARY KEY,
+    pro_titulo text not null,
+    pro_dataDeCriacao date not null,
+    pro_dataDeLiberacao date,
+    pro_duracao timestamp not null,
+    fk_Professor_p_id int not null
+);
+
+CREATE TABLE Questao (
+    que_id int not null AUTO_INCREMENT PRIMARY KEY,
+    que_tipoDequestao boolean not null,
+    que_texto varchar(64) not null
+);
+
+CREATE TABLE Alternativa (
+    alt_id int not null AUTO_INCREMENT PRIMARY KEY,
+    alt_texto varchar(64) not null,
+    alt_valor boolean not null,
+    fk_Questao_que_id int not null
+);
+
+CREATE TABLE Aluno_Prova_Faz___E_Feita (
+    av_id int not null AUTO_INCREMENT PRIMARY KEY,
+    av_nota smallint not null,
+    fk_Aluno_a_id int,
+    fk_Prova_pro_id int
+);
+
+CREATE TABLE Tem (
+    fk_Questao_que_id int,
+    fk_Prova_pro_id int
+);
+
+ 
+ALTER TABLE Prova ADD CONSTRAINT FK_Prova_2
+    FOREIGN KEY (fk_Professor_p_id)
+    REFERENCES Professor (p_id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Alternativa ADD CONSTRAINT FK_Alternativa_2
+    FOREIGN KEY (fk_Questao_que_id)
+    REFERENCES Questao (que_id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Aluno_Prova_Faz___E_Feita ADD CONSTRAINT FK_Aluno_Prova_Faz___E_Feita_2
+    FOREIGN KEY (fk_Aluno_a_id)
+    REFERENCES Aluno (a_id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Aluno_Prova_Faz___E_Feita ADD CONSTRAINT FK_Aluno_Prova_Faz___E_Feita_3
+    FOREIGN KEY (fk_Prova_pro_id)
+    REFERENCES Prova (pro_id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Tem ADD CONSTRAINT FK_Tem_1
+    FOREIGN KEY (fk_Questao_que_id)
+    REFERENCES Questao (que_id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Tem ADD CONSTRAINT FK_Tem_2
+    FOREIGN KEY (fk_Prova_pro_id)
+    REFERENCES Prova (pro_id)
+    ON DELETE CASCADE;
