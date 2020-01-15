@@ -9,13 +9,8 @@ $texto=$_POST["texto"];
 //trim e strip
 //carregando um aluno
 $q = new Questao();
-$id=$q->generateId();
-$id+=1;
 Questao::create(array(
-    'id'=>$id,
     'tipo'=>$tipo,
     'texto'=>$texto,
 ));
-echo $id;
-
 ?>

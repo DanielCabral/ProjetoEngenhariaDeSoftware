@@ -6,19 +6,6 @@ use Developer\DB\Sql;
 
 class Professor extends Usuario
 {
-    private $id;
-    private $nome;
-    private $email;
-
-    public function getId():int{ return $this->id; }
-    public function setId(int $id){ $this->id = $id; }
-
-    public function getNome():string{ return $this->nome; }
-    public function setNome(string $nome){ $this->nome = $nome; }
-
-    public function getEmail():string{ return $this->email; }
-    public function setEmail(string $email){$this->email = $email; }
-
 
     public function acess(int $id):int
     {
