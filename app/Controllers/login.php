@@ -15,13 +15,15 @@ if($tipo==0){
     $a->setSenha($senha);
     $a->setTipo(0);                 //aluno por padrão é 0
     $idAluno = $a->logar();
+    echo $idAluno;
     //carregando aluno
-    if($idAluno){
+    if($idAluno!=-1){
         $a->acess($idAluno);
         header('Location: ../Views/home/');
         echo 'logou';
     }else{
         echo 'nao logou';
+        header('Location: ../Views/index.php');
     }
 }else{
     //carregando um professor
@@ -35,10 +37,11 @@ if($tipo==0){
      //carregando professor
     if($idProfessor!=-1){
         $p->acess($idProfessor);
-        header('Location: /home/index.php');
+        header('Location: ../Views/home/');
       echo 'logou';
     }else{
         echo 'nao logou';
+        header('Location: ../Views/index.php');
     }
 }
 ?>

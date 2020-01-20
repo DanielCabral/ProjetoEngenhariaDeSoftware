@@ -38,21 +38,21 @@
         <aside class="col-sm-4">
         <div class="card">
         <article class="card-body">
-        <a href="signup.php" class="float-right btn btn-outline-primary">Sign up</a>
-        <h4 class="card-title mb-4 mt-1">Sign in</h4>
+        <a href="signup.php" class="float-right btn btn-outline-primary">Cadastro</a>
+        <h4 class="card-title mb-4 mt-1">Login</h4>
             <form action="../Controllers/login.php" method="post">
                 <div class="form-group">
-                    <label>Your email</label>
-                    <input name="email" class="form-control" placeholder="Email" type="email">
+                    <label>Seu login</label>
+                    <input name="email" class="form-control" placeholder="Email" type="text">
                 </div> <!-- form-group// -->
                 <div class="form-group">
-                    <a class="float-right" href="#">Forgot?</a>
-                    <label>Your password</label>
+                    <a class="float-right" href="#">Esqueceu?</a>
+                    <label>Sua senha</label>
                     <input name="senha" class="form-control" placeholder="******" type="password">
                 </div> <!-- form-group// --> 
                 <div class="form-group"> 
                 <div class="checkbox">
-                <label> <input type="checkbox"> Save password </label>
+                <label> <input type="checkbox"> Salvar Senha </label>
                 </div> <!-- checkbox .// -->
                 </div> <!-- form-group// -->  
                 <label>Tipo: </label>
