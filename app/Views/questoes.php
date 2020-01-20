@@ -50,7 +50,8 @@
             <td>".$linha['que_tipoDequestao']."</td>
             <td>".$linha['que_texto']."</td>
             <td class=\"text-center\">
-            <a onclick=\"excluirQuestao(".$linha['que_id'].",".$cont.")\" class=\"btn btn-danger btn-xs\"><span class=\"glyphicon glyphicon-remove\"></span> Excluir</a></td>
+            <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"abrirModalConfirmacao(".$linha['que_id'].",".$cont.")\">Excluir</button>
+           </td>
             </tr>";
 
           }
@@ -58,20 +59,50 @@
     </table>
     </div>
     <div class="row col-md-3"></div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Tem certeza que deseja excluir?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" onclick="excluirQuestao()">Excluir</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 <script>
-function excluirQuestao(id,linha){
+var id;
+var linha;
 
+function abrirModalConfirmacao(id,linha){
+this.id=id;
+this.linha=linha;
+$('#myModal').modal('show');
+}
+
+function excluirQuestao(){
 send(id,'../Controllers/excluirQuestao.php');
 document.getElementById("tabela").deleteRow(linha);
+$('#myModal').modal('hide');
 }
-function send(id,urlClass) {
+  function send(id,urlClass) {
     $.post(urlClass,
   {
+    metodo:1,
     idQ: id
   },
   function(data, status){
-    alert("Data: " + data + "\nStatus: " + status);
+    console.log("Data: " + data + "\nStatus: " + status);
   });
 }
 </script>

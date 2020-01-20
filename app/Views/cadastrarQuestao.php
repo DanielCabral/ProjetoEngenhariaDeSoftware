@@ -229,6 +229,7 @@
         var tipo=document.getElementById("tipo1").checked==true?0:1; 
         console.log("tipo"+tipo);
         var questao = {
+            metodo:0,
             tipoQ: tipo,
             texto: textoQuestao,
         }
@@ -237,6 +238,7 @@
         var id=Number(document.getElementById('result').innerHTML);
         console.log('id: '+id);
         salvarAlternativas(id);
+        window.location.href = "questoes.php";
     }
     function salvarAlternativas(idQuestao){
         //pegar numero de linhas na tabela
