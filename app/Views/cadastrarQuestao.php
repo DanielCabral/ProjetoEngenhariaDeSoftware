@@ -1,6 +1,3 @@
-<?php
-    include_once 'conexao.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,19 +53,7 @@
                 </div> <!-- form-group// -->
                 <table class="table table-striped custab">
                 <thead>
-                <?php
-                    $consulta = $PDO->query("SELECT * FROM questao");
-                    $count = $consulta->rowCount();
-                    if($count<32){
-                ?>
                 <button  onclick="adicionarAlternativa()" id="addAlternativa" type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#exampleModal"><b>+</b> Adicionar nova Alternativa</button>
-                <?php
-                }else{
-                ?>
-                <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#exampleModal"><b>+</b> Adicionar nova Alternativa</button>
-                <?php
-                }
-                ?>   
                 <tr>
                         <th>Texto</th>
                         <th>Valor</th>

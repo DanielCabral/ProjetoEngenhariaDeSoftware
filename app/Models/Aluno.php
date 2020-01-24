@@ -13,8 +13,7 @@ class Aluno extends Usuario
         $sql = new Sql();
         $dados = $sql->select('SELECT * FROM aluno WHERE a_id = '.$id);
 
-        if(isset($dados[0]))
-        {
+        if(isset($dados[0])) {
             $this->setid($dados[0]['a_id']);
             $this->setNome($dados[0]['a_nome']);
             $this->setEmail($dados[0]['a_email']);
@@ -23,9 +22,8 @@ class Aluno extends Usuario
             $this->setTipo(0);                     
 
             return 1;
-        }else{
-            return 0;
-        }   
+        }
+            return 0;   
     }
 
     public static function create(array $dados):bool

@@ -8,7 +8,7 @@ $login=$_POST['email'];
 $senha=$_POST['senha'];
 $tipo=$_POST['tipo'];
 echo $tipo;
-if($tipo==0){
+if($tipo==0) {
     //carregando um aluno
     $a = new Aluno();
     $a->setLogin($login);
@@ -17,29 +17,27 @@ if($tipo==0){
     $idAluno = $a->logar();
     echo $idAluno;
     //carregando aluno
-    if($idAluno!=-1){
+    if($idAluno!=-1) {
         $a->acess($idAluno);
         header('Location: ../Views/home/');
         echo 'logou';
-    }else{
+    }else {
         echo 'nao logou';
         header('Location: ../Views/index.php');
     }
-}else{
+}else {
     //carregando um professor
     $p = new Professor();
     $p->setLogin($login);
     $p->setSenha($senha);
     $p->setTipo(1);                 //professor por padrão é 1
 
-    //carregando professor
     $idProfessor = $p->logar();
-     //carregando professor
-    if($idProfessor!=-1){
+    if($idProfessor!=-1) {
         $p->acess($idProfessor);
         header('Location: ../Views/home/');
       echo 'logou';
-    }else{
+    }else {
         echo 'nao logou';
         header('Location: ../Views/index.php');
     }

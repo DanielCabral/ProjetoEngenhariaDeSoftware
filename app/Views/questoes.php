@@ -1,5 +1,6 @@
 <?php
-    include_once 'conexao.php';
+ require_once '../../vendor/autoload.php';
+ use App\Models\Questao;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,18 +23,11 @@
     <table id="tabela" class="table table-striped custab">
     <thead>
     <?php
-        $consulta = $PDO->query("SELECT * FROM questao");
-        $count = $consulta->rowCount();
-        if($count<32){
+       $listaDeQuestoes = Questao::listar();
+       $listaDeQuestoes=json_decode($listaDeQuestoes, true);
     ?>
     <a href="cadastrarQuestao.php" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Questão</a>
-    <?php
-    }else{
-    ?>
-    <a href="cadastrarQuestao.php" class="btn disabled btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Questão</a>
-    <?php
-    }
-    ?>   
+ 
     <tr>
             <th>Tipo de Questão</th>
             <th>Texto</th>
@@ -41,20 +35,17 @@
         </tr>
     </thead>
             <?php
-          //$consulta = $PDO->query("SELECT horario,id FROM horarios order by segundos as;");
-       
-          $cont=0;
-          while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-            $cont++;
-            echo "<tr>
-            <td>".$linha['que_tipoDequestao']."</td>
-            <td>".$linha['que_texto']."</td>
-            <td class=\"text-center\">
-            <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"abrirModalConfirmacao(".$linha['que_id'].",".$cont.")\">Excluir</button>
-           </td>
-            </tr>";
-
-          }
+              $cont=0;
+              foreach ( $listaDeQuestoes as $questao) {
+                $cont++;
+                echo "<tr>
+                <td>".$questao['que_tipoDequestao']."</td>
+                <td>".$questao['que_texto']."</td>
+                <td class=\"text-center\">
+                <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"abrirModalConfirmacao(".$questao['que_id'].",".$cont.")\">Excluir</button>
+              </td>
+                </tr>";
+              }
            ?>
     </table>
     </div>
@@ -84,13 +75,13 @@
 var id;
 var linha;
 
-function abrirModalConfirmacao(id,linha){
+function abrirModalConfirmacao(id,linha) {
 this.id=id;
 this.linha=linha;
 $('#myModal').modal('show');
 }
 
-function excluirQuestao(){
+function excluirQuestao() {
 send(id,'../Controllers/excluirQuestao.php');
 document.getElementById("tabela").deleteRow(linha);
 $('#myModal').modal('hide');
@@ -101,7 +92,7 @@ $('#myModal').modal('hide');
     metodo:1,
     idQ: id
   },
-  function(data, status){
+  function(data, status) {
     console.log("Data: " + data + "\nStatus: " + status);
   });
 }

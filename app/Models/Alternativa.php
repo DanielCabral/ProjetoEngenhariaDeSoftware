@@ -23,12 +23,6 @@ class Alternativa
     public function getTexto():string{ return $this->texto; }
     public function set(string $texto){ $this->texto = $texto;}
 
-    public function generateId():int
-    {
-        $sql = new Sql();
-        $idG = $sql->select('SELECT MAX(alt_id) as id FROM alternativa');
-        return $idG[0]['id'];
-    }
     public static function listar(int $qId)
     {
         $sql = new Sql();
@@ -42,17 +36,14 @@ class Alternativa
         $sql = new Sql();
         $dados = $sql->select('SELECT * FROM alternativas WHERE alt_id = '.$id);
 
-        if(isset($dados[0]))
-        {
+        if(isset($dados[0])) {
             $this->setid($dados[0]['alt_id']);
             $this->setQId($dados[0]['fk_q_id']);
             $this->setvalor($dados[0]['alt_valor']);
             $this->setTexto($dados[0]['alt_texto']);                    
-
             return 1;
-        }else{
-            return 0;
-        }   
+        }
+            return 0;   
     }
 
     public static function create(array $dados)

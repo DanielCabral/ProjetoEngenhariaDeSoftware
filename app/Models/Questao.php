@@ -19,17 +19,11 @@ class Questao
     public function getTexto():string{ return $this->texto; }
     public function setTexto(string $texto){ $this->texto = $texto; }
     
-    public function generateId():int
-    {
-        $sql = new Sql();
-        $idG = $sql->select('SELECT MAX(que_id) as id FROM questao');
-        return $idG[0]['id'];
-    }
 
     public static function listar()
     {
         $sql = new Sql();
-        $dados = $sql->select('SELECT * FROM questoes');
+        $dados = $sql->select('SELECT * FROM questao');
 
         return json_encode($dados);
     }
@@ -37,18 +31,16 @@ class Questao
     public function acess(int $id):int
     {
         $sql = new Sql();
-        $dados = $sql->select('SELECT * FROM questoes WHERE q_id = '.$id);
+        $dados = $sql->select('SELECT * FROM questao WHERE q_id = '.$id);
 
-        if(isset($dados[0]))
-        {
+        if(isset($dados[0])) {
             $this->setid($dados[0]['q_id']);
             $this->setTipo($dados[0]['q_tipo']);
             $this->setTexto($dados[0]['q_texto']);                    
 
             return 1;
-        }else{
-            return 0;
-        }   
+        }
+            return 0;   
     }
 
     public static function create(array $dados)

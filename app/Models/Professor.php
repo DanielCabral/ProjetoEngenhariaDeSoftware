@@ -12,8 +12,7 @@ class Professor extends Usuario
         $sql = new Sql();
         $dados = $sql->select('SELECT * FROM professor WHERE p_id = '.$id);
 
-        if(isset($dados[0]))
-        {
+        if(isset($dados[0])) {
             $this->setid($dados[0]['p_id']);
             $this->setNome($dados[0]['p_nome']);
             $this->setEmail($dados[0]['p_email']);
@@ -22,9 +21,8 @@ class Professor extends Usuario
             $this->setTipo(1);                     
 
             return 1;
-        }else{
-            return 0;
-        }   
+        }
+            return 0;   
     }
 
     public static function create(array $dados)

@@ -9,7 +9,7 @@ class Usuario
 {
     private $login;
     private $senha;
-    private $tipo;  //é uma variável exclusiva em código (não possui no BD)
+    private $tipo;  //é uma variável exclusiva em código (não possui correspondente no BD)
     private $id;
     private $nome;
     private $email;
@@ -36,9 +36,8 @@ class Usuario
     public function logar():int
     {
         $result;
-
-        if($this->getTipo())
-        {
+        
+        if($this->getTipo()) {
             $sql = new Sql();
             $result = $sql->select('SELECT p_id FROM professor WHERE p_login = :L AND p_senha = :S', 
                 array(
@@ -57,13 +56,27 @@ class Usuario
                 )
             );
         }
+
         var_dump($result);
-        if(isset($result[0]) && $this->getTipo()){
+        /*
+        1º Teste
+        Verifica se a consulta sql retornou algum valor a variavel $result
+        E se o getTipo retorna valor igual a 1, que representa o tipo professor.
+        2º Teste
+        Verifica se a consulta sql retornou algum valor a variavel $result
+        Caso positivo, significa que o primeiro teste falhou apenas porque o tipo recebeu valor 0
+        Ou seja, o usuario é do tipo aluno.
+        3º
+        Caso a variavel não tenha valor setado, retorna -1.
+        Lembrando que a consulta retorna um id, que necesariamente é maior que zero.
+        Portanto, o valor -1 representa uma falha de login
+        */ 
+        if(isset($result[0]) 
+           && $this->getTipo()) {
             return $result[0]['p_id'];
-        }elseif(isset($result[0])){
+        }else if(isset($result[0]) ) {
             return $result[0]['a_id'];
-        }else{
-            return -1;
         }
+            return -1;
     }
 }
