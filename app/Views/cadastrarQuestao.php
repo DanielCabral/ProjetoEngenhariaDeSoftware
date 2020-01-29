@@ -21,9 +21,18 @@
             margin-top: 140px; /* define margin as you see fit */
         }
     </style>
+     <!-- Custom fonts for this template -->
+     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+  <link href="home/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+  <link href="home/css/resume.min.css" rel="stylesheet">
+  <link href="home/css/resume.css" rel="stylesheet">
+    <!-- Imports -->
+    <link rel="import" href="../Views/home/menulateral.php">
 </head>
-<body>
+<body id="page-top">
 <div class="container">
     <div class="row spacer">
         <div class="span4"></div>
@@ -32,14 +41,20 @@
     </div>
     <div class="row">
     <br><br><br>
- 
+<script>
+  var link = document.querySelector('link[rel="import"]');
+  var content = link.import;    
+  // Grab DOM from warning.html's document.
+  var el = content.querySelector('.barralateral');    
+  document.body.appendChild(el.cloneNode(true));
+</script>
     <aside class="col-sm-2">
     </aside>
         <aside class="col-sm-8">
         <div class="card">
         <article class="card-body">
         <h4 class="card-title mb-4 mt-1">Cadastrar Nova Questão</h4>
-            <form action="../Controllers/save.ph" method="post">
+            <form action="../Controllers/save.php" method="post">
             <label>Tipo de questão: </label>
                 <div class="radio">
                 <label><input type="radio" id="tipo1" name="tipo" value="0" checked>Objetiva</label>

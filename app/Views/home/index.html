@@ -21,7 +21,8 @@
   <!-- Custom styles for this template -->
   <link href="css/resume.min.css" rel="stylesheet">
   <link href="css/resume.css" rel="stylesheet">
-
+  <!-- Imports -->
+  <link rel="import" href="menulateral.php">
 </head>
 
 <body id="page-top">
@@ -59,40 +60,20 @@
           </div>
         </div>
 
-  <nav class="navbar navbar-expand-lg navbar-dark p-3 mb-2 bg-info text-white fixed-top" id="sideNav">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">
-      <span class="d-block d-lg-none">Engenharia de Software</span>
-      <span class="d-none d-lg-block">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/11.jpg" alt="">
-      </span>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#gProvas">Gerenciar Provas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="../questoes.php">Gerenciar Questões</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#vEstat">Visualizar Estatistica de Provas</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<script>
+  var link = document.querySelector('link[rel="import"]');
+  var content = link.import;    
+   // Grab DOM from warning.html's document.
+  var el = content.querySelector('.barralateral');    
+  document.body.appendChild(el.cloneNode(true));
+</script>
 
   <div class="container-fluid p-0">
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
       <div class="w-100">
         <h1 class="mb-0">Usuario
-          <span class="text-primary">Tatata</span>
+          <span class="text-primary">X</span>
         </h1>
         <div class="subheading mb-5">
         </div>

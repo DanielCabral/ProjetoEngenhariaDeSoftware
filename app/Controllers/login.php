@@ -19,7 +19,7 @@ if($tipo==0) {
     //carregando aluno
     if($idAluno!=-1) {
         $a->acess($idAluno);
-        header('Location: ../Views/home/');
+        //header('Location: ../Views/home/');
         echo 'logou';
     }else {
         echo 'nao logou';

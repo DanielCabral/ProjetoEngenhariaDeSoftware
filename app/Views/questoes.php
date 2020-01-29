@@ -13,15 +13,34 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+     <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+  <link href="home/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+  <link href="home/css/resume.min.css" rel="stylesheet">
+  <link href="home/css/resume.css" rel="stylesheet">
+    <!-- Imports -->
+    <link rel="import" href="../Views/home/menulateral.php">
 </head>
-<body>
+<body id="page-top">
+<script>
+  var link = document.querySelector('link[rel="import"]');
+  var content = link.import;    
+  // Grab DOM from warning.html's document.
+  var el = content.querySelector('.barralateral');    
+  document.body.appendChild(el.cloneNode(true));
+</script>
 <br><br>
 
 <div class="container">
+
 <div class="row col-md-3"></div>
     <div class="row col-md-6 col-md-offset-2 custyle">
     <table id="tabela" class="table table-striped custab">
-    <thead>
+    <thead
+    >
     <?php
        $listaDeQuestoes = Questao::listar();
        $listaDeQuestoes=json_decode($listaDeQuestoes, true);
@@ -38,8 +57,12 @@
               $cont=0;
               foreach ( $listaDeQuestoes as $questao) {
                 $cont++;
+                $tipoDeQuestao='Objetiva';
+                if($questao['que_tipoDequestao']==1){
+                  $tipoDeQuestao='Verdadeiro / Falso';
+                }
                 echo "<tr>
-                <td>".$questao['que_tipoDequestao']."</td>
+                <td>".$tipoDeQuestao."</td>
                 <td>".$questao['que_texto']."</td>
                 <td class=\"text-center\">
                 <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"abrirModalConfirmacao(".$questao['que_id'].",".$cont.")\">Excluir</button>
