@@ -54,7 +54,7 @@
         <div class="card">
         <article class="card-body">
         <h4 class="card-title mb-4 mt-1">Cadastrar Nova Questão</h4>
-            <form action="../Controllers/save.php" method="post">
+            <form>
             <label>Tipo de questão: </label>
                 <div class="radio">
                 <label><input type="radio" id="tipo1" name="tipo" value="0" checked>Objetiva</label>

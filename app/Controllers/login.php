@@ -7,7 +7,7 @@ use App\Models\Professor;
 $login=$_POST['email'];
 $senha=$_POST['senha'];
 $tipo=$_POST['tipo'];
-echo $tipo;
+
 if($tipo==0) {
     //carregando um aluno
     $a = new Aluno();
@@ -15,15 +15,17 @@ if($tipo==0) {
     $a->setSenha($senha);
     $a->setTipo(0);                 //aluno por padrão é 0
     $idAluno = $a->logar();
-    echo $idAluno;
     //carregando aluno
     if($idAluno!=-1) {
         $a->acess($idAluno);
+        session_start();
+        $_SESSION['id']=$idAluno;
+        $_SESSION['nome']=$a->getNome();
+        $_SESSION['tipo']=$tipo;
         //header('Location: ../Views/home/');
-        echo 'logou';
     }else {
-        echo 'nao logou';
-        header('Location: ../Views/index.php');
+        echo  "<script>alert('Usuario ou senha invalidos!');
+        javascript:window.location='../Views/index.php';</script>";
     }
 }else {
     //carregando um professor
@@ -35,11 +37,16 @@ if($tipo==0) {
     $idProfessor = $p->logar();
     if($idProfessor!=-1) {
         $p->acess($idProfessor);
+        session_start();
+        $_SESSION['id']=$idProfessor;
+        $_SESSION['nome']=$p->getNome();
+        $_SESSION['tipo']=$tipo;
         header('Location: ../Views/home/');
       echo 'logou';
     }else {
         echo 'nao logou';
-        header('Location: ../Views/index.php');
+        echo  "<script>alert('Usuario ou senha invalidos!');
+        javascript:window.location='../Views/index.php';</script>";
     }
 }
 ?>

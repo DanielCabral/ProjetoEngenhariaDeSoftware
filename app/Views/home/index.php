@@ -1,3 +1,6 @@
+<?php
+include '../../Controllers/testeSessao.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,7 +76,7 @@
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
       <div class="w-100">
         <h1 class="mb-0">Usuario
-          <span class="text-primary">X</span>
+          <span class="text-primary"><?php echo $_SESSION['nome'];?></span>
         </h1>
         <div class="subheading mb-5">
         </div>

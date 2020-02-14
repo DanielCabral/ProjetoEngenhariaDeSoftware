@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(!isset($_SESSION["id"])){
+  header('Location: ../Views/logout.php');
+}
+?>
 <div class="barralateral">
 <nav class="navbar navbar-expand-lg navbar-dark p-3 mb-2 bg-info text-white fixed-top" id="sideNav">
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
@@ -15,13 +21,16 @@
           <a class="nav-link js-scroll-trigger" href="/ProjetoEngenhariaDeSoftware/app/Views/home/">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#gProvas">Gerenciar Provas</a>
+          <a class="nav-link js-scroll-trigger" href="/ProjetoEngenhariaDeSoftware/app/Views/provas.php">Gerenciar Provas</a>
         </li>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="/ProjetoEngenhariaDeSoftware/app/Views/questoes.php">Gerenciar Questões</a>
         </li>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#vEstat">Visualizar Estatistica de Provas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/ProjetoEngenhariaDeSoftware/app/Controllers/logout.php">Logout</a>
         </li>
       </ul>
     </div>

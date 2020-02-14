@@ -1,8 +1,7 @@
 <?php
  require_once '../../vendor/autoload.php';
-
  require_once '../Controllers/testeSessao.php';
- use App\Models\Questao;
+ use App\Models\Prova;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,30 +43,29 @@
     <thead
     >
     <?php
-       $listaDeQuestoes = Questao::listar();
-       $listaDeQuestoes=json_decode($listaDeQuestoes, true);
+       $listaDeProvas = Prova::listar();
+       $listaDeProvas=json_decode($listaDeProvas, true);
     ?>
-    <a href="cadastrarQuestao.php" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Questão</a>
+    <a style="pointer-events:none;" href="cadastrarQuestao.php" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Prova</a>
  
     <tr>
-            <th>Tipo de Questão</th>
-            <th>Texto</th>
+            <th>Titulo</th>
+            <th>Data de criação</th>
+            <th>Data de liberação</th>
             <th class="text-center">Opções</th>
         </tr>
     </thead>
             <?php
               $cont=0;
-              foreach ( $listaDeQuestoes as $questao) {
+              foreach ( $listaDeProvas as $prova) {
                 $cont++;
-                $tipoDeQuestao='Objetiva';
-                if($questao['que_tipoDequestao']==1){
-                  $tipoDeQuestao='Verdadeiro / Falso';
-                }
+
                 echo "<tr>
-                <td>".$tipoDeQuestao."</td>
-                <td>".$questao['que_texto']."</td>
+                <td>".substr($prova['pro_titulo'], 0, 20)." ...</td>
+                <td>".$prova['pro_dataDeCriacao']."</td>
+                <td>".$prova['pro_dataDeLiberacao']."</td>
                 <td class=\"text-center\">
-                <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"abrirModalConfirmacao(".$questao['que_id'].",".$cont.")\">Excluir</button>
+                <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"abrirModalConfirmacao(".$prova['pro_id'].",".$cont.")\">Excluir</button>
               </td>
                 </tr>";
               }

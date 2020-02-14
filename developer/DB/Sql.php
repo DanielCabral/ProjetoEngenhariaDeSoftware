@@ -45,7 +45,7 @@ class Sql
         //}
         //$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $id=$this->conn->lastInsertId();
-        print_r($id);
+        //print_r($id);
     }
 
     public function select(string $rawQuery, $params = array()):array
